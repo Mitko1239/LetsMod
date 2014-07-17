@@ -1,6 +1,8 @@
 package com.mitko1239.letsmod;
 
 import com.mitko1239.letsmod.handler.ConfigurationHandler;
+import com.mitko1239.letsmod.init.ModBlocks;
+import com.mitko1239.letsmod.init.ModItems;
 import com.mitko1239.letsmod.proxy.IProxy;
 import com.mitko1239.letsmod.reference.Reference;
 import com.mitko1239.letsmod.utility.LogHelper;
@@ -26,6 +28,10 @@ public class LetsMod
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
         LogHelper.info("Pre initialization complete!");
+
+        ModItems.init();
+
+        ModBlocks.init();
     }
 
     @Mod.EventHandler
