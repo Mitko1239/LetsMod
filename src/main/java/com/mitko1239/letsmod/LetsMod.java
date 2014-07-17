@@ -1,36 +1,42 @@
 package com.mitko1239.letsmod;
 
+import com.mitko1239.letsmod.handler.ConfigurationHandler;
 import com.mitko1239.letsmod.proxy.IProxy;
+import com.mitko1239.letsmod.reference.Reference;
+import com.mitko1239.letsmod.utility.LogHelper;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid="LetsMod", name="Lets Mod", version="1.7.2-1.0")
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS)
 public class LetsMod
 {
-    @Mod.Instance("LetsMod")
+    @Mod.Instance(Reference.MOD_ID)
     public static LetsMod instance;
 
-    @SidedProxy(clientSide = "com.mitko1239.letsmod.proxy.ClientProxy", serverSide = "com.mitko1239.letsmod.proxy.ServerProxy")
+    @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
     public static IProxy proxy;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-
+        ConfigurationHandler.init(event.getSuggestedConfigurationFile());
+        FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
+        LogHelper.info("Pre initialization complete!");
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
-
+        LogHelper.info("Initialization complete!");
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-
+        LogHelper.info("Post initialization complete!");
     }
 }
